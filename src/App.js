@@ -1,8 +1,12 @@
 import React from 'react'
+import "./App.css"
+import MainComp from './Components/MainComp'
 
 const App = () => {
   return (
-    <div>App</div>
+    <>
+    <MainComp/>
+    </>
   )
 }
 

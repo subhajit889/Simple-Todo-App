@@ -1,3 +1,4 @@
+// Navbar.js
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/Navbar.module.css';
 
@@ -30,7 +31,6 @@ function Navbar({ resetTodos }) {
         Reset
       </button>
     </div>
-
   );
 }
 

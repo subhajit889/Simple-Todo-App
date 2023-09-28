@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../styles/TodoItem.module.css'; // Import the CSS module
+import styles from '../styles/TodoItem.module.css';
 
-function TodoItem({ todo, completeTodo, deleteTodo, editTodo, isAddingTodo, currentDateTime }) {
+function TodoItem({ todo, completeTodo, deleteTodo, editTodo, currentDateTime }) {
   const [isEditing, setEditing] = useState(false);
   const [updatedText, setUpdatedText] = useState(todo.text);
   const [isNewTodo, setIsNewTodo] = useState(false);
   const [isCompleted, setCompleted] = useState(todo.isComplete);
+  const [completionTimestamp, setCompletionTimestamp] = useState(null); // Add state for completion timestamp
 
   useEffect(() => {
-    if (isAddingTodo) {
-      setIsNewTodo(true);
-      setTimeout(() => {
-        setIsNewTodo(false);
-      }, 300); // Remove the fadeIn class after 300ms
+    if (isNewTodo) {
+      setIsNewTodo(false);
     }
-  }, [isAddingTodo]);
+  }, [isNewTodo]);
 
   const handleEdit = () => {
     if (updatedText.trim() !== '') {
@@ -25,10 +23,12 @@ function TodoItem({ todo, completeTodo, deleteTodo, editTodo, isAddingTodo, curr
 
   const handleComplete = () => {
     if (!isCompleted) {
-      // If the TODO item is not completed, complete it and disable editing
       completeTodo(todo.id);
       setCompleted(true);
       setEditing(false);
+
+      // Set the completion timestamp when the task is marked as complete
+      setCompletionTimestamp(new Date().toLocaleString());
     }
   };
 
@@ -58,13 +58,15 @@ function TodoItem({ todo, completeTodo, deleteTodo, editTodo, isAddingTodo, curr
       <div className={styles.actions}>
         {!isEditing && (
           <div className={styles.editAndDelete}>
-            <button
-              onClick={() => setEditing(true)}
-              className={`${styles.editBtn} ${isCompleted ? styles.disabled : ''}`}
-              disabled={isCompleted}
-            >
-              Edit
-            </button>
+            {!isCompleted && (
+              <button
+                onClick={() => setEditing(true)}
+                className={`${styles.editBtn} ${isCompleted ? styles.disabled : ''}`}
+                disabled={isCompleted}
+              >
+                Edit
+              </button>
+            )}
             <button
               onClick={() => deleteTodo(todo.id)}
               className={`${styles.deleteBtn} ${isCompleted ? '' : styles.disabled}`}
@@ -73,9 +75,12 @@ function TodoItem({ todo, completeTodo, deleteTodo, editTodo, isAddingTodo, curr
             </button>
           </div>
         )}
-        <div className={styles.currentDateTime}>To-do Added on: {currentDateTime}</div>
+        <div className={styles.currentDateTime}>
+          To-do Added on: {currentDateTime}
+          {isCompleted && <div>To-Do Complete on: {completionTimestamp}</div>} {/* Render completion timestamp */}
+        </div>
         <button onClick={handleComplete} className={styles.completeBtn}>
-          {isCompleted ? 'Undo' : 'Complete'}
+          {isCompleted ? 'TASK COMPLETE' : 'Complete'}
         </button>
       </div>
     </div>

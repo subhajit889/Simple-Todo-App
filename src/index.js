@@ -1,11 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
+import ReactDOM from 'react-dom';
+import "./index.css"
+import MainComp from './Components/MainComp';
+import { TodoProvider } from './Components/TodoContext';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <TodoProvider>
+      <MainComp />
+    </TodoProvider>
   </React.StrictMode>
 );
-

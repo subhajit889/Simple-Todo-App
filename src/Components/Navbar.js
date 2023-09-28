@@ -1,9 +1,10 @@
-// Navbar.js
 import React, { useState, useEffect } from 'react';
+import { useValue } from '../context/context';
 import styles from '../styles/Navbar.module.css';
 
-function Navbar({ resetTodos }) {
+function Navbar() {
   const [currentDateTime, setCurrentDateTime] = useState('');
+  const { deleteAllTodos } = useValue();
 
   useEffect(() => {
     const updateDateTime = () => {
@@ -27,7 +28,7 @@ function Navbar({ resetTodos }) {
     <div className={styles.navbar}>
       <h1 className={styles['nav-heading']}>Todo</h1>
       <div className={styles['datetime']}>{currentDateTime}</div>
-      <button onClick={resetTodos} className={styles['reset-button']}>
+      <button onClick={() => deleteAllTodos()} className={styles['reset-button']}>
         Reset
       </button>
     </div>

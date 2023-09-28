@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+# To-Do App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple and customizable To-Do List application built with React.
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+The To-Do App is a web application that allows you to create and manage your to-do tasks. It is built using React and provides a user-friendly interface for adding, editing, and marking tasks as complete. The app also displays timestamps for when tasks are added and completed.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## See this :- 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Create and add new to-do tasks.
+- Edit existing tasks.
+- Mark tasks as complete.
+- View timestamps for task creation and completion.
+- Delete tasks.
+- Reset all tasks.
 
-### `npm run build`
+## Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   git clone https://github.com/your-username/todo-app.git
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   cd todo-app
 
-### `npm run eject`
+   npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   npm start
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Open http://localhost:3000 in your browser!
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Usage
 
-## Learn More
+1. Enter a new task in the input field and press the "Add To-Do" button or press Enter.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. To edit a task, click the "Modify" button, make your changes, and then click "Save" or "Cancel."
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. To mark a task as complete, click the "Mark as Complete" button.
 
-### Code Splitting
+4. To delete a task, click the "Delete" button.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+5. To reset the list of tasks, click the "Reset" button in the navigation bar.
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Styling
 
-### Making a Progressive Web App
+CSS styles are organized using modular CSS modules for easy customization.
+Stylesheets are available for TodoItem, MainForm, and Navbar components.
+You can customize colors, fonts, and layout by editing the CSS files.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+## Tech Stack Used
+1. React: The entire front-end of the application is built using React, a popular JavaScript library for building user interfaces.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+2. React Context: React Context is used for state management, allowing data to be shared between components without having to pass props manually through the component tree.
 
-### Deployment
+3. CSS Modules: Modular CSS stylesheets are used to style the components. CSS Modules help in encapsulating styles and prevent global CSS conflicts.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+4. HTML and JavaScript: HTML is used for structuring the web page, and JavaScript is used for adding interactivity and functionality to the app.
 
-### `npm run build` fails to minify
+5. localStorage: The localStorage Web API is used to store and retrieve the to-do list data locally in the user's browser.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+6. React Icons: Icons from the react-icons library are used for social media icons (e.g., Twitter, Facebook, Instagram) and other icons (e.g., save, cancel, edit, delete).

@@ -6,3 +6,8 @@
   box-sizing: border-box;
   font-family: 'Mooli', sans-serif;
 }
+
+.todo-app{
+  margin: 1.2rem;
+  height: 80vh;
+}

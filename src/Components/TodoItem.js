@@ -1,90 +1,87 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useValue } from '../context/context';
 import styles from '../styles/TodoItem.module.css';
 
-function TodoItem({ todo, completeTodo, deleteTodo, editTodo, currentDateTime }) {
-  const [isEditing, setEditing] = useState(false);
-  const [updatedText, setUpdatedText] = useState(todo.text);
-  const [isNewTodo, setIsNewTodo] = useState(false);
-  const [isCompleted, setCompleted] = useState(todo.isComplete);
-  const [completionTimestamp, setCompletionTimestamp] = useState(null); // Add state for completion timestamp
+const TodoItem = ({ todo, index }) => {
+  const { removeTodo, todos, setTodos } = useValue();
 
-  useEffect(() => {
-    if (isNewTodo) {
-      setIsNewTodo(false);
-    }
-  }, [isNewTodo]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedText, setEditedText] = useState(todo.text);
 
   const handleEdit = () => {
-    if (updatedText.trim() !== '') {
-      editTodo(todo.id, updatedText);
-      setEditing(false);
-    }
+    setIsEditing(true);
   };
 
-  const handleComplete = () => {
-    if (!isCompleted) {
-      completeTodo(todo.id);
-      setCompleted(true);
-      setEditing(false);
+  const handleSave = () => {
+    const updatedTodos = [...todos];
+    updatedTodos[index].text = editedText;
+    setTodos(updatedTodos);
+    setIsEditing(false);
+  };
 
-      // Set the completion timestamp when the task is marked as complete
-      setCompletionTimestamp(new Date().toLocaleString());
-    }
+  const handleCancel = () => {
+    setEditedText(todo.text);
+    setIsEditing(false);
   };
 
   return (
-    <div className={`${styles.todo} ${isNewTodo ? styles.fadeIn : ''} ${isCompleted ? styles.complete : ''}`}>
-      {isEditing ? (
-        <div className={styles.editContainer}>
-          <input
-            type="text"
-            className={styles.inputBox}
-            value={updatedText}
-            onChange={(e) => setUpdatedText(e.target.value)}
-            autoFocus
-          />
-          <div className={styles.editButtons}>
-            <button onClick={handleEdit} className={styles.saveBtn}>
-              Save
-            </button>
-            <button onClick={() => setEditing(false)} className={styles.cancelBtn}>
-              Cancel
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div className={styles.todoText}>{todo.text}</div>
-      )}
-      <div className={styles.actions}>
-        {!isEditing && (
-          <div className={styles.editAndDelete}>
-            {!isCompleted && (
-              <button
-                onClick={() => setEditing(true)}
-                className={`${styles.editBtn} ${isCompleted ? styles.disabled : ''}`}
-                disabled={isCompleted}
-              >
-                Edit
+    <div className={styles.totalContainer}>
+      <div className={`${styles['todo-item']} ${todo.completed ? styles.completed : ''}`}>
+        <div className={styles['todo-item-content']}>{todo.text}</div>
+        <div className={styles['todo-item-buttons']}>
+          {isEditing ? (
+            <div className={styles.editSection}>
+                <input
+                type="text"
+                value={editedText}
+                className={styles.editInput}
+                onChange={(e) => setEditedText(e.target.value)}
+              />
+              <button onClick={handleSave} className={styles['saveBtn']}>
+                Save
               </button>
-            )}
-            <button
-              onClick={() => deleteTodo(todo.id)}
-              className={`${styles.deleteBtn} ${isCompleted ? '' : styles.disabled}`}
-            >
-              Delete
-            </button>
-          </div>
-        )}
-        <div className={styles.currentDateTime}>
-          To-do Added on: {currentDateTime}
-          {isCompleted && <div>To-Do Complete on: {completionTimestamp}</div>} {/* Render completion timestamp */}
+              <button onClick={handleCancel} className={styles['cancelBtn']}>
+                Cancel
+              </button>
+            </div>
+          ) : (
+            <>
+              {!todo.completed && (
+                <button onClick={handleEdit} className={styles['editBtn']}>
+                  Modify
+                </button>
+              )}
+              <button onClick={() => removeTodo(index)} className={styles['deleteBtn']}>
+                Delete
+              </button>
+            </>
+          )}
         </div>
-        <button onClick={handleComplete} className={styles.completeBtn}>
-          {isCompleted ? 'TASK COMPLETE' : 'Complete'}
-        </button>
+        <div className={styles.dateTime}>
+          <span className={styles.addTimeStamp}>
+            {todo.dateAdded && `Added on : ${todo.dateAdded}`}{' '}
+          </span>
+          <span className={styles.completeTimeStamp}>
+            {todo.completed && todo.dateCompleted && `Completed: ${todo.dateCompleted}`}
+          </span>
+        </div>
+        
+        {!todo.completed && (
+          <button
+            onClick={() => {
+              const updatedTodos = [...todos];
+              updatedTodos[index].completed = true;
+              updatedTodos[index].dateCompleted = new Date().toLocaleString(); // Capture the timestamp
+              setTodos(updatedTodos);
+            }}
+            className={`${styles['mark-button']} ${styles['mark-button-large']}`}
+          >
+            Mark as Complete
+          </button>
+        )}
       </div>
     </div>
   );
-}
+};
 
 export default TodoItem;
